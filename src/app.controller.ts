@@ -81,7 +81,7 @@ export class AppController {
     const newBook : Book = {
       ...newBookData,
       id: this.nextId,
-      reserved: false
+      reserved: false,
     }
     this.nextId++;
     this.books.push(newBook);
