@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Render } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Book } from './book';
 import { BookDto } from './create-book.dto';
@@ -64,6 +64,7 @@ export class AppController {
   }
 
   @Delete('books/:bookid')
+  @HttpCode(204)
   deleteBook(@Param('bookid') id : string){
     const idNumber = parseInt(id);
     const idx = this.books.findIndex(book => book.id = idNumber);
@@ -75,6 +76,7 @@ export class AppController {
   }
 
   @Post('newBook')
+  @HttpCode(201)
   createNewBook(@Body() newBookData : BookDto){
     const newBook : Book = {
       ...newBookData,
@@ -88,6 +90,7 @@ export class AppController {
   }
 
   @Patch('updateBook/:bookid')
+  @HttpCode(200)
   updateBook(@Param('bookid') id : string, @Body() newBookData : UpdateBookDto){
     const idNumber = parseInt(id);
     const originalBookId = this.books.findIndex(book => book.id == idNumber);
